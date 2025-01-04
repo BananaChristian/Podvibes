@@ -3,6 +3,7 @@ import 'package:podvibes/objects/buttons.dart';
 import 'package:podvibes/objects/fields.dart';
 import 'package:podvibes/pages/home.dart';
 
+
 class RegisterPage extends StatelessWidget {
   final VoidCallback togglePages;
 
@@ -106,12 +107,10 @@ class RegisterPage extends StatelessWidget {
                   color: Colors.blue,
                   text: 'Register',
                   textColor:Colors.white,
-                  onTap:(){
+                  onTap:() async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder:(context)=>const Home()
-                      ),
+                      MaterialPageRoute(builder:(context)=>Home())
                     );
                   }   
                 ),         

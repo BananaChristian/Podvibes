@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController=TextEditingController();
+    final TextEditingController usernameController=TextEditingController();
     final TextEditingController passwordController=TextEditingController();
     return Scaffold(
       body:SingleChildScrollView(
@@ -54,24 +54,13 @@ class LoginPage extends StatelessWidget {
                   color: const Color.fromARGB(255, 255, 255, 255), 
                   hintText: 'Username',
                   obscureText: false, 
-                  controller: emailController,
+                  controller: usernameController,
                   icon:const Icon(
                     Icons.person,
                     color:Color.fromARGB(255, 255, 255, 255)
                     )
                 ),
                 const SizedBox(height:20),
-                //Email address field
-                Fields(
-                  color: const Color.fromARGB(255, 255, 255, 255), 
-                  hintText: 'E-mail address',
-                  obscureText: false, 
-                  controller: emailController,
-                  icon:const Icon(
-                    Icons.email,
-                    color:Color.fromARGB(255, 255, 255, 255)
-                    )
-                ),
                 const SizedBox(height:20),
                 //Password field
                  Fields(
@@ -91,12 +80,10 @@ class LoginPage extends StatelessWidget {
                   color: Colors.blue,
                   text: 'Login',
                   textColor:Colors.white,
-                  onTap:(){
+                  onTap:() async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder:(context)=>const Home()
-                      ),
+                      MaterialPageRoute(builder: (context)=>Home())
                     );
                   }   
                 ),
@@ -114,7 +101,6 @@ class LoginPage extends StatelessWidget {
                   textColor:Colors.white,
                   onTap:(){
                     togglePages();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('tapped')));
                   }
                 )
               ],

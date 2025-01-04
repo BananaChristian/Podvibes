@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podvibes/models/new_podcasts.dart';
+import 'package:podvibes/pages/settings.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,7 +15,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         actions:[
           Container(
             padding:const EdgeInsets.all(10),
@@ -30,62 +31,67 @@ class _HomeState extends State<Home> {
         ],
       ),
       drawer:Drawer(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         child:ListView(
           padding:const EdgeInsets.all(10),
           children:[
-            const DrawerHeader(
+            DrawerHeader(
               decoration:BoxDecoration(
-                borderRadius:BorderRadius.only(
+                borderRadius:const BorderRadius.only(
                   topLeft:Radius.circular(20),
                   topRight:Radius.circular(20)
                   ),
-                color:Colors.white
+                color:Theme.of(context).colorScheme.inversePrimary
               ),
               child:Column(
                 children:[
-                  CircleAvatar(),
-                  SizedBox(height:10),
+                  const CircleAvatar(),
+                  const SizedBox(height:10),
                   Text(
                     'Welcome User',
-                    style:TextStyle(color:Color.fromARGB(255, 0, 0, 0))
+                    style:TextStyle(color:Theme.of(context).colorScheme.primary)
                     ),
                 ],
               ),
             ),
             //Home
             ListTile(
-              leading:const Icon(Icons.home,color:Colors.white),
-              title:const Text(
+              leading:Icon(Icons.home,color:Theme.of(context).colorScheme.inversePrimary),
+              title:Text(
                 'Home',
-                style:TextStyle(color:Colors.white)
+                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                 ),
               onTap:(){}
             ),
             //Downloads
             ListTile(
-              leading:const Icon(Icons.download,color:Colors.white),
-              title:const Text(
+              leading:Icon(Icons.download,color:Theme.of(context).colorScheme.inversePrimary),
+              title:Text(
                 'Downloads',
-                style:TextStyle(color:Colors.white)
+                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                 ),
               onTap:(){}
             ),
             //Settings
             ListTile(
-              leading:const Icon(Icons.settings,color:Colors.white),
-              title:const Text(
+              leading:Icon(Icons.settings,color:Theme.of(context).colorScheme.inversePrimary),
+              title:Text(
                 'Settings',
-                style:TextStyle(color:Colors.white)
+                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                 ),
-              onTap:(){}
+              onTap:(){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:(context)=>const SettingsPage())
+                );
+              }
             ),
             //Logout
             ListTile(
-              leading:const Icon(Icons.logout,color:Colors.white),
-              title:const Text(
+              leading:Icon(Icons.logout,color:Theme.of(context).colorScheme.inversePrimary),
+              title:Text(
                 'Logout',
-                style:TextStyle(color:Colors.white)
+                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
               ),
               onTap:(){}
               )
@@ -93,7 +99,7 @@ class _HomeState extends State<Home> {
         )
       ),
       body:Container(
-        color:const Color.fromARGB(255, 0, 0, 0),
+        color:Theme.of(context).colorScheme.surface,
         padding:const EdgeInsets.all(10),
         child: Column(
           children: [
@@ -169,7 +175,7 @@ class _HomeState extends State<Home> {
       child:Text(
         section,
         style:TextStyle(
-          color:isSelected?Colors.amber:Colors.white,
+          color:isSelected?Colors.amber:Theme.of(context).colorScheme.inversePrimary,
           fontWeight:isSelected?FontWeight.bold:FontWeight.normal,
           fontSize: isSelected?18:16
         )
@@ -193,7 +199,7 @@ class _HomeState extends State<Home> {
   }
   
   Widget _buildRecentSection(){
-    return Text('Recent');
+    return const Text('Recent');
   }
 
   Widget _buildAuthorsSection(){
@@ -249,7 +255,7 @@ class _HomeState extends State<Home> {
   
 
   Widget _buildEpisodesSection(){
-    return Text('Episodes');
+    return const Text('Episodes');
   }
 
   Widget _buildTopicsList(){
@@ -272,11 +278,11 @@ class _HomeState extends State<Home> {
         return Padding(
           padding:const EdgeInsets.symmetric(vertical:5.0),
           child:Card(
-            color:Colors.black,
+            color:Colors.amber,
             child:ListTile(
               title:Text(
                 topics[index],
-                style:const TextStyle(color:Colors.white)
+                style:TextStyle(color:Theme.of(context).colorScheme.primary)
               ),
               onTap:(){
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Selected topics: ${topics[index]}')));

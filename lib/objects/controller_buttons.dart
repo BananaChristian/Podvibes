@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ControllerButtons extends StatefulWidget {
   final VoidCallback onTap;
-  final Icon icon;
+  final IconData icon;
   final Color iconColor;
   final Color bgColor;
   final double size;
@@ -31,7 +31,10 @@ class _ControllerButtonsState extends State<ControllerButtons> {
           borderRadius:BorderRadius.circular(50),
           color:widget.bgColor
         ),
-        child:widget.icon,
+        child:Icon(
+          widget.icon,
+          color:widget.iconColor
+          ),
       ),
     ); 
   }

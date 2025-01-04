@@ -55,9 +55,9 @@ class _NewPodcastState extends State<NewPodcast> {
                         padding: const EdgeInsets.only(top:55.0),
                         child: ControllerButtons(
                           onTap:(){},
-                          icon:const Icon(Icons.play_arrow),
-                          bgColor:Colors.amber,
-                          iconColor:Colors.white
+                          icon:Icons.play_arrow,
+                          bgColor:Theme.of(context).colorScheme.inversePrimary,
+                          iconColor:Theme.of(context).colorScheme.primary
                         ),
                       )
                     ],

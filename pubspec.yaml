@@ -75,6 +75,8 @@ flutter:
      - assets\author6.png
      - assets\logo\podvibes.png
      - assets\logo\podvibes_bgless.png
+     - assets\history_hour.png
+     - assets\tech_today.png
 
 flutter_icons:
     android: true

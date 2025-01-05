@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podvibes/models/new_podcasts.dart';
+import 'package:podvibes/objects/controller_buttons.dart';
 import 'package:podvibes/pages/settings.dart';
 
 class Home extends StatefulWidget {
@@ -199,7 +200,39 @@ class _HomeState extends State<Home> {
   }
   
   Widget _buildRecentSection(){
-    return const Text('Recent');
+    final recentPodcasts=[
+      {'title':'Tech today','description':'Latest in the world of technology','image':'assets/tech_today.png'},
+      {'title':'History Hour','description':'Dive into the wonderful of history ','image':'assets/history_hour.png'}
+    ];
+
+    return ListView.builder(
+      itemCount:recentPodcasts.length,
+      itemBuilder: (context,index){
+        final podcast=recentPodcasts[index];
+        return Card(
+          color:Colors.amber,
+          child:ListTile(
+            leading:Image.asset(podcast['image']!),
+            title:Text(
+              podcast['title']!,
+              style:TextStyle(
+                color:Theme.of(context).colorScheme.primary,
+                fontWeight:FontWeight.bold
+                )
+              ),
+            subtitle:Text(
+              podcast['description']!,
+              style:TextStyle(
+                color:Theme.of(context).colorScheme.primary,
+              ),
+              ),
+            onTap:(){
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(podcast['title']!)));
+            }
+          )
+        );
+      },
+    );
   }
 
   Widget _buildAuthorsSection(){
@@ -241,7 +274,7 @@ class _HomeState extends State<Home> {
                   const SizedBox(height:10),
                   Text(
                     author['name']!,
-                    style:const TextStyle(color:Colors.white)
+                    style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                   )
                 ],
               ),
@@ -255,7 +288,32 @@ class _HomeState extends State<Home> {
   
 
   Widget _buildEpisodesSection(){
-    return const Text('Episodes');
+    final episodes=[
+      {'title':'Episode 1 : Getting started','duration':'30 mins'},
+      {'title':'Episode 2 : Advanced topics','duration':'45 mins'}
+    ];
+
+    return ListView.builder(
+      itemCount:episodes.length,
+      itemBuilder: (context,index){
+        final episode=episodes[index];
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            leading:ControllerButtons(
+              icon:Icons.play_arrow,
+              bgColor:Colors.amber,
+              iconColor: Theme.of(context).colorScheme.primary,
+              size:10,
+              onTap:(){
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(episode['title']!)));
+              }
+            ),
+            title:Text(episode['title']!),
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildTopicsList(){

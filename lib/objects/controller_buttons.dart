@@ -33,7 +33,8 @@ class _ControllerButtonsState extends State<ControllerButtons> {
         ),
         child:Icon(
           widget.icon,
-          color:widget.iconColor
+          color:widget.iconColor,
+          size:widget.size
           ),
       ),
     ); 

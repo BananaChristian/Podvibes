@@ -57,7 +57,8 @@ class _NewPodcastState extends State<NewPodcast> {
                           onTap:(){},
                           icon:Icons.play_arrow,
                           bgColor:Theme.of(context).colorScheme.inversePrimary,
-                          iconColor:Theme.of(context).colorScheme.primary
+                          iconColor:Theme.of(context).colorScheme.primary,
+                          size:25
                         ),
                       )
                     ],

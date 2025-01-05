@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:podvibes/models/podcast_player.dart';
 import 'package:podvibes/objects/controller_buttons.dart';
 
 class NewPodcast extends StatefulWidget {
@@ -54,7 +55,12 @@ class _NewPodcastState extends State<NewPodcast> {
                       Padding(
                         padding: const EdgeInsets.only(top:55.0),
                         child: ControllerButtons(
-                          onTap:(){},
+                          onTap:(){
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context)=>const PodcastPlayer())
+                            );
+                          },
                           icon:Icons.play_arrow,
                           bgColor:Theme.of(context).colorScheme.inversePrimary,
                           iconColor:Theme.of(context).colorScheme.primary,

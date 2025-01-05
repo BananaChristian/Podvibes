@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podvibes/models/new_podcasts.dart';
+import 'package:podvibes/models/podcast_player.dart';
+import 'package:podvibes/models/search_board.dart';
 import 'package:podvibes/objects/controller_buttons.dart';
 import 'package:podvibes/pages/settings.dart';
 
@@ -12,6 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String selectedSection='Recent';
+  bool isSearchBoardVisible=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,146 +23,199 @@ class _HomeState extends State<Home> {
         actions:[
           Container(
             padding:const EdgeInsets.all(10),
-            child: const Row(
+            child:Row(
               children:[
-                Icon(
-                Icons.search,
-                color:Color.fromARGB(255, 221, 218, 218)
-                ),       
+                IconButton(
+                  icon:Icon(
+                    isSearchBoardVisible? Icons.close:Icons.search,
+                    color:Theme.of(context).colorScheme.inversePrimary
+                    ), 
+                  onPressed:(){
+                    setState((){
+                      isSearchBoardVisible=!isSearchBoardVisible;
+                    });
+                  }
+                )
+                      
               ],
             ),
           ),
         ],
       ),
-      drawer:Drawer(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child:ListView(
-          padding:const EdgeInsets.all(10),
-          children:[
-            DrawerHeader(
-              decoration:BoxDecoration(
-                borderRadius:const BorderRadius.only(
-                  topLeft:Radius.circular(20),
-                  topRight:Radius.circular(20)
-                  ),
-                color:Theme.of(context).colorScheme.inversePrimary
-              ),
-              child:Column(
-                children:[
-                  const CircleAvatar(),
-                  const SizedBox(height:10),
-                  Text(
-                    'Welcome User',
-                    style:TextStyle(color:Theme.of(context).colorScheme.primary)
-                    ),
-                ],
-              ),
-            ),
-            //Home
-            ListTile(
-              leading:Icon(Icons.home,color:Theme.of(context).colorScheme.inversePrimary),
-              title:Text(
-                'Home',
-                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
-                ),
-              onTap:(){}
-            ),
-            //Downloads
-            ListTile(
-              leading:Icon(Icons.download,color:Theme.of(context).colorScheme.inversePrimary),
-              title:Text(
-                'Downloads',
-                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
-                ),
-              onTap:(){}
-            ),
-            //Settings
-            ListTile(
-              leading:Icon(Icons.settings,color:Theme.of(context).colorScheme.inversePrimary),
-              title:Text(
-                'Settings',
-                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
-                ),
-              onTap:(){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder:(context)=>const SettingsPage())
-                );
-              }
-            ),
-            //Logout
-            ListTile(
-              leading:Icon(Icons.logout,color:Theme.of(context).colorScheme.inversePrimary),
-              title:Text(
-                'Logout',
-                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
-              ),
-              onTap:(){}
-              )
-          ]
-        )
-      ),
-      body:Container(
-        color:Theme.of(context).colorScheme.surface,
-        padding:const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              child: Container(
-                padding:const EdgeInsets.all(20),
-                alignment: Alignment.center,
+      drawer:SafeArea(
+        child: Drawer(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          child:ListView(
+            padding:const EdgeInsets.all(10),
+            children:[
+              DrawerHeader(
                 decoration:BoxDecoration(
                   borderRadius:const BorderRadius.only(
-                    bottomLeft:Radius.circular(50),
-                  ),
-                    image:DecorationImage(
-                    image:const AssetImage('assets/bg_home.png'),
-                    fit:BoxFit.cover,
-                    colorFilter:ColorFilter.mode(
-                      Colors.black.withOpacity(0.8),
-                      BlendMode.dstATop
-                    )
+                    topLeft:Radius.circular(20),
+                    topRight:Radius.circular(20),
                     ),
-                    ),
+                  color:Theme.of(context).colorScheme.inversePrimary
+                ),
                 child:Column(
                   children:[
-                    const Text(
-                      'New Podcasts',
-                      textAlign:TextAlign.center,
-                      style:TextStyle(
-                        color:Colors.white,
-                        fontSize:20
-                        ),
+                    const CircleAvatar(),
+                    const SizedBox(height:10),
+                    Text(
+                      'Welcome User',
+                      style:TextStyle(color:Theme.of(context).colorScheme.primary)
                       ),
-                    NewPodcast(
-                      image:'assets/cat.png',
-                      hoverText: 'Cats',
-                       onTap: (){}
-                      ),
-                    const SizedBox(height:20),
                   ],
                 ),
               ),
-            ),
-            //Main section
-            const SizedBox(height:10),
-            const SizedBox(height:10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:[
-                _buildSectionToggle('Recent'),
-                const SizedBox(width:20),
-                _buildSectionToggle('Topics'),
-                const SizedBox(width:20),
-                _buildSectionToggle('Authors'),
-                const SizedBox(width:20),
-                _buildSectionToggle('Episodes'), 
-            ]),
-            const SizedBox(height:20),
-            //Section content
-            Expanded(child:_buildSectionContent())
-          ],
+              //Home
+              ListTile(
+                leading:Icon(Icons.home,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Home',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                  ),
+                onTap:(){}
+              ),
+              //Downloads
+              ListTile(
+                leading:Icon(Icons.download,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Downloads',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                  ),
+                onTap:(){}
+              ),
+              //Settings
+              ListTile(
+                leading:Icon(Icons.settings,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Settings',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                  ),
+                onTap:(){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context)=>const SettingsPage())
+                  );
+                }
+              ),
+              //Logout
+              ListTile(
+                leading:Icon(Icons.subscriptions,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Subscriptions',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                ),
+                onTap:(){}
+                ),
+              //History
+              ListTile(
+                leading:Icon(Icons.history,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'History',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                ),
+                onTap:(){}
+                ),
+              //Favorites
+              ListTile(
+                leading:Icon(Icons.favorite,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Favorites',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                ),
+                onTap:(){}
+                )
+            ]
+          )
         ),
+      ),
+      body:Stack(
+        children: [
+          Container(
+            color:Theme.of(context).colorScheme.surface,
+            padding:const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    padding:const EdgeInsets.all(20),
+                    alignment: Alignment.center,
+                    decoration:BoxDecoration(
+                      borderRadius:const BorderRadius.only(
+                        bottomLeft:Radius.circular(50),
+                      ),
+                        image:DecorationImage(
+                        image:const AssetImage('assets/bg_home.png'),
+                        fit:BoxFit.cover,
+                        colorFilter:ColorFilter.mode(
+                          Colors.black.withOpacity(0.8),
+                          BlendMode.dstATop
+                        )
+                        ),
+                        ),
+                    child:Column(
+                      children:[
+                        const Text(
+                          'New Podcasts',
+                          textAlign:TextAlign.center,
+                          style:TextStyle(
+                            color:Colors.white,
+                            fontSize:20
+                            ),
+                          ),
+                        NewPodcast(
+                          image:'assets/cat.png',
+                          hoverText: 'Cats',
+                           onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context)=>const PodcastPlayer())
+                            );
+                           }
+                          ),
+                        const SizedBox(height:20),
+                      ],
+                    ),
+                  ),
+                ),
+                //Main section
+                const SizedBox(height:10),
+                const SizedBox(height:10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    _buildSectionToggle('Recent'),
+                    const SizedBox(width:20),
+                    _buildSectionToggle('Topics'),
+                    const SizedBox(width:20),
+                    _buildSectionToggle('Authors'),
+                    const SizedBox(width:20),
+                    _buildSectionToggle('Episodes'), 
+                ]),
+                const SizedBox(height:20),
+                //Section content
+                Expanded(
+                  child:_buildSectionContent()
+                ),
+              ],
+            ),
+          ),
+          //Searchboard handler
+          if(isSearchBoardVisible)
+            Positioned(
+              top:0,
+              left:0,
+              bottom:0,
+              child:Container(
+                color:Colors.black.withOpacity(0.5),
+                child:const Padding(
+                  padding:EdgeInsets.all(20),
+                  child:SearchBoard()
+                )
+              )
+            ),
+        ],
       ),
     );
   }
@@ -210,20 +266,20 @@ class _HomeState extends State<Home> {
       itemBuilder: (context,index){
         final podcast=recentPodcasts[index];
         return Card(
-          color:Colors.amber,
+          color:Theme.of(context).colorScheme.primary,
           child:ListTile(
             leading:Image.asset(podcast['image']!),
             title:Text(
               podcast['title']!,
               style:TextStyle(
-                color:Theme.of(context).colorScheme.primary,
+                color:Theme.of(context).colorScheme.inversePrimary,
                 fontWeight:FontWeight.bold
                 )
               ),
             subtitle:Text(
               podcast['description']!,
               style:TextStyle(
-                color:Theme.of(context).colorScheme.primary,
+                color:Theme.of(context).colorScheme.inversePrimary,
               ),
               ),
             onTap:(){
@@ -304,7 +360,7 @@ class _HomeState extends State<Home> {
               icon:Icons.play_arrow,
               bgColor:Colors.amber,
               iconColor: Theme.of(context).colorScheme.primary,
-              size:10,
+              size:15,
               onTap:(){
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(episode['title']!)));
               }
@@ -336,11 +392,11 @@ class _HomeState extends State<Home> {
         return Padding(
           padding:const EdgeInsets.symmetric(vertical:5.0),
           child:Card(
-            color:Colors.amber,
+            color:Theme.of(context).colorScheme.primary,
             child:ListTile(
               title:Text(
                 topics[index],
-                style:TextStyle(color:Theme.of(context).colorScheme.primary)
+                style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
               ),
               onTap:(){
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Selected topics: ${topics[index]}')));

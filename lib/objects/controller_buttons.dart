@@ -6,6 +6,7 @@ class ControllerButtons extends StatefulWidget {
   final Color iconColor;
   final Color bgColor;
   final double size;
+  final double radius;
 
   const ControllerButtons({
     super.key,
@@ -13,6 +14,7 @@ class ControllerButtons extends StatefulWidget {
     required this.icon,
     required this.bgColor,
     required this.iconColor,
+    this.radius=50,
     this.size=50
     });
 
@@ -28,7 +30,7 @@ class _ControllerButtonsState extends State<ControllerButtons> {
       child:Container(
         padding:const EdgeInsets.all(20),
         decoration:BoxDecoration(
-          borderRadius:BorderRadius.circular(50),
+          borderRadius:BorderRadius.circular(widget.radius),
           color:widget.bgColor
         ),
         child:Icon(

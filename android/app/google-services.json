@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "951624098481",
+    "project_id": "podvibes-bbd61",
+    "storage_bucket": "podvibes-bbd61.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951624098481:android:c7126083e54797d5783890",
+        "android_client_info": {
+          "package_name": "com.podvibes.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH92L7l796N6e_ZaENN-Ikl_nyrX8NJvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:podvibes/auth/auth.dart';
 import 'package:podvibes/models/new_podcasts.dart';
 import 'package:podvibes/models/podcast_player.dart';
 import 'package:podvibes/models/search_board.dart';
@@ -17,6 +18,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedSection='Recent';
   bool isSearchBoardVisible=false;
+
+  void logout(){
+    Auth().signOut();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +121,7 @@ class _HomeState extends State<Home> {
                   );
                 }
               ),
-              //Logout
+              //Subscriptions
               ListTile(
                 leading:Icon(Icons.subscriptions,color:Theme.of(context).colorScheme.inversePrimary),
                 title:Text(
@@ -142,7 +147,19 @@ class _HomeState extends State<Home> {
                   style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                 ),
                 onTap:(){}
+                ),
+              //Logout
+              ListTile(
+                leading:Icon(Icons.logout,color:Theme.of(context).colorScheme.inversePrimary),
+                title:Text(
+                  'Log out',
+                  style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
+                ),
+                onTap:(){
+                  logout();
+                }
                 )
+
             ]
           )
         ),

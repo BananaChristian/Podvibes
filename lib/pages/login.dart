@@ -1,17 +1,47 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:podvibes/auth/auth.dart';
 import 'package:podvibes/objects/buttons.dart';
 import 'package:podvibes/objects/fields.dart';
 import 'package:podvibes/pages/home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   final VoidCallback togglePages;
 
   const LoginPage({super.key, required this.togglePages});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
   Widget build(BuildContext context) {
     final TextEditingController usernameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
+    void login(){
+      //Circular loader
+      showDialog(
+        context:context,
+        builder:(context)=>const Center(
+          child:CircularProgressIndicator(),
+        )
+      );
+      //Logging in the user
+      if(emailController.text.isEmpty&&passwordController.text.isEmpty){
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password or email is empty')));
+      }else{
+        try{
+          Auth().signIn(emailController.text, passwordController.text);
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login succesful')));
+        }on FirebaseAuthException catch(e){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Unable to login an error $e ocuured')));
+        }
+      }
+    }
+
     return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -51,7 +81,16 @@ class LoginPage extends StatelessWidget {
                           controller: usernameController, 
                           icon: const Icon(Icons.person)
                           ),
-                        const SizedBox(height:20),
+                        const SizedBox(height:10),
+                        //email
+                        Fields(
+                          color: Theme.of(context).colorScheme.inversePrimary, 
+                          hintText: 'E-mail address', 
+                          obscureText: false, 
+                          controller: emailController, 
+                          icon: const Icon(Icons.email)
+                          ),
+                        const SizedBox(height:10),
                         //Password
                         Fields(
                           color: Theme.of(context).colorScheme.inversePrimary, 
@@ -60,7 +99,7 @@ class LoginPage extends StatelessWidget {
                           controller: passwordController, 
                           icon: const Icon(Icons.key)
                         ),
-                        const SizedBox(height:20),
+                        const SizedBox(height:10),
                         //Forgot Password
                         Text(
                           'Forgot password?',
@@ -68,13 +107,15 @@ class LoginPage extends StatelessWidget {
                             color:Theme.of(context).colorScheme.inversePrimary
                           )
                         ),
-                        const SizedBox(height:20),
+                        const SizedBox(height:10),
                         //Buttons
                         MyButtons(
                           color: Colors.amber, 
                           text: 'Login', 
                           textColor: Theme.of(context).colorScheme.inversePrimary, 
-                          onTap: (){}
+                          onTap: (){
+                            login();
+                          }
                         ),
                         const SizedBox(height:10),
                         //Questions
@@ -83,7 +124,7 @@ class LoginPage extends StatelessWidget {
                             children:[
                               GestureDetector(
                                 onTap:(){
-                                  togglePages();
+                                  widget.togglePages();
                                 },
                                 child: const Text(
                                   'Register',

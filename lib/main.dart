@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:podvibes/pages/login_or_register.dart';
+import 'package:podvibes/auth/auth_gate.dart';
+import 'package:podvibes/firebase_options.dart';
 import 'package:podvibes/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-void main(){
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform);
   runApp(
     ChangeNotifierProvider(
     create: (context) => ThemeProvider(),
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
       builder:(context,themeProvider,child){
         return MaterialApp(
         title:'PodVibes',
-        home:const LoginOrRegisterPage(),
+        home:const AuthGate(),
         debugShowCheckedModeBanner: false,
         theme:themeProvider.themeData,
       );

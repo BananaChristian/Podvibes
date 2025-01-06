@@ -6,107 +6,108 @@ import 'package:podvibes/pages/home.dart';
 class LoginPage extends StatelessWidget {
   final VoidCallback togglePages;
 
-  const LoginPage({
-    super.key,
-    required this.togglePages
-    });
+  const LoginPage({super.key, required this.togglePages});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController usernameController=TextEditingController();
-    final TextEditingController passwordController=TextEditingController();
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
-      body:SingleChildScrollView(
-        child: Container(
-          padding:const EdgeInsets.all(20),
-          decoration:BoxDecoration(
-            image:DecorationImage(
-              image: const AssetImage('assets/background.png'),
-              fit:BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.8),
-                BlendMode.dstATop
+        body: SingleChildScrollView(
+          child:Container(
+            padding: const EdgeInsets.all(20),
+            alignment: Alignment.center,
+            child:Column(
+              children: [
+              //Login form
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  padding:const EdgeInsets.all(20),
+                  color:Theme.of(context).colorScheme.primary,
+                  child:Column(
+                    children: [
+                      //Logo section
+                      const SizedBox(
+                        width:200,
+                        child: Image(image:AssetImage('assets/logo/podvibes_bgless.png'))
+                        ),
+                      //Main text
+                      Text(
+                        'Login',
+                        style:TextStyle(
+                          color:Theme.of(context).colorScheme.inversePrimary,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
+                        )
+                        ),
+                      const SizedBox(height:20),
+                      //Username
+                      Fields(
+                        color: Theme.of(context).colorScheme.inversePrimary, 
+                        hintText: 'Username', 
+                        obscureText: false, 
+                        controller: usernameController, 
+                        icon: const Icon(Icons.person)
+                        ),
+                      const SizedBox(height:20),
+                      //Password
+                      Fields(
+                        color: Theme.of(context).colorScheme.inversePrimary, 
+                        hintText: 'password', 
+                        obscureText: true, 
+                        controller: passwordController, 
+                        icon: const Icon(Icons.key)
+                      ),
+                      const SizedBox(height:20),
+                      //Forgot Password
+                      Text(
+                        'Forgot password?',
+                        style:TextStyle(
+                          color:Theme.of(context).colorScheme.inversePrimary
+                        )
+                      ),
+                      const SizedBox(height:20),
+                      //Buttons
+                      MyButtons(
+                        color: Colors.amber, 
+                        text: 'Login', 
+                        textColor: Theme.of(context).colorScheme.inversePrimary, 
+                        onTap: (){}
+                      ),
+                      const SizedBox(height:10),
+                      //Questions
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:[
+                            GestureDetector(
+                              onTap:(){
+                                togglePages();
+                              },
+                              child: const Text(
+                                'Do not have an account? Register',
+                                style:TextStyle(color:Colors.amber)
+                                ),
+                            ),
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context)=>const Home())
+                                );
+                              },
+                              child: const Text('Continue as guest')
+                              )
+                          ],
+                        ),
+                    ],
+                    )
+                ),
               )
-              )
-          ),
-          child:Column(
-              children:[
-                //Logo
-                const SizedBox(
-                  height:200,
-                  child: Image(
-                    image: AssetImage('assets/logo/podvibes_bgless.png')
-                    ),
-                ),
-                //Text 
-                const Text(
-                  'Welcome back!',
-                  style:TextStyle(
-                    color:Color.fromARGB(255, 255, 255, 255),
-                    fontSize:30,
-                    fontWeight: FontWeight.bold
-                    )
-                  ),
-                const SizedBox(height:10),
-                //FIELDS
-                //Username
-                Fields(
-                  color: const Color.fromARGB(255, 255, 255, 255), 
-                  hintText: 'Username',
-                  obscureText: false, 
-                  controller: usernameController,
-                  icon:const Icon(
-                    Icons.person,
-                    color:Color.fromARGB(255, 255, 255, 255)
-                    )
-                ),
-                const SizedBox(height:20),
-                const SizedBox(height:20),
-                //Password field
-                 Fields(
-                  color: const Color.fromARGB(255, 255, 255, 255), 
-                  hintText: 'Password',
-                  obscureText: true, 
-                  controller: passwordController,
-                  icon:const Icon(
-                    Icons.key,
-                    color:Color.fromARGB(255, 255, 255, 255)
-                    )
-                ),
-                const SizedBox(height:30),
-                //BUTTONS
-                //Login button
-                MyButtons(
-                  color: Colors.blue,
-                  text: 'Login',
-                  textColor:Colors.white,
-                  onTap:() async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context)=>Home())
-                    );
-                  }   
-                ),
-                const SizedBox(height:10),
-                //Forgot password text
-                const Text(
-                  'Forgot Password ?',
-                  style:TextStyle(color:Color.fromARGB(255, 255, 255, 255))
-                  ),
-                const SizedBox(height:20),
-                //Register new account button
-                MyButtons(
-                  color:Colors.red,
-                  text:'Register new account',
-                  textColor:Colors.white,
-                  onTap:(){
-                    togglePages();
-                  }
-                )
               ],
             ),
+          ),
         ),
-      )
-    );
+        );
   }
 }

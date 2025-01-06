@@ -18,11 +18,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title:'PodVibes',
-      home:const LoginOrRegisterPage(),
-      debugShowCheckedModeBanner: false,
-      theme:Provider.of<ThemeProvider>(context).themeData,
+    return Consumer<ThemeProvider>(
+      builder:(context,themeProvider,child){
+        return MaterialApp(
+        title:'PodVibes',
+        home:const LoginOrRegisterPage(),
+        debugShowCheckedModeBanner: false,
+        theme:themeProvider.themeData,
+      );
+      }
     );
   }
 }

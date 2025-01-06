@@ -3,6 +3,8 @@ import 'package:podvibes/models/new_podcasts.dart';
 import 'package:podvibes/models/podcast_player.dart';
 import 'package:podvibes/models/search_board.dart';
 import 'package:podvibes/objects/controller_buttons.dart';
+import 'package:podvibes/pages/author_page.dart';
+import 'package:podvibes/pages/profile.dart';
 import 'package:podvibes/pages/settings.dart';
 
 class Home extends StatefulWidget {
@@ -58,7 +60,17 @@ class _HomeState extends State<Home> {
                 ),
                 child:Column(
                   children:[
-                    const CircleAvatar(),
+                    GestureDetector(
+                      onTap:(){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=>const ProfilePage())
+                        );
+                      },
+                      child: const CircleAvatar(
+                        backgroundImage: AssetImage('assets/author1.png'),
+                      ),
+                    ),
                     const SizedBox(height:10),
                     Text(
                       'Welcome User',
@@ -74,7 +86,12 @@ class _HomeState extends State<Home> {
                   'Home',
                   style:TextStyle(color:Theme.of(context).colorScheme.inversePrimary)
                   ),
-                onTap:(){}
+                onTap:(){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context)=>const Home())
+                    );
+                }
               ),
               //Downloads
               ListTile(
@@ -207,6 +224,7 @@ class _HomeState extends State<Home> {
               top:0,
               left:0,
               bottom:0,
+              right:0,
               child:Container(
                 color:Colors.black.withOpacity(0.5),
                 child:const Padding(
@@ -293,12 +311,12 @@ class _HomeState extends State<Home> {
 
   Widget _buildAuthorsSection(){
     final authors=[
-      {'name': 'Alice Smith', 'image': 'assets/author1.png'},
-      {'name': 'John Doe', 'image': 'assets/author2.png'},
-      {'name': 'Jane Roe', 'image': 'assets/author3.png'},
-      {'name': 'Chris Brown', 'image': 'assets/author4.png'},
-      {'name': 'Emily White', 'image': 'assets/author5.png'},
-      {'name': 'Michael Green', 'image': 'assets/author6.png'},
+      {'name': 'Alice Smith', 'image': 'assets/author1.png','tag':'author-1','description':'Best in the business'},
+      {'name': 'John Doe', 'image': 'assets/author2.png','tag':'author-2','description':'Best in the business'},
+      {'name': 'Jane Roe', 'image': 'assets/author3.png','tag':'author-3','description':'Best in the business'},
+      {'name': 'Chris Brown', 'image': 'assets/author4.png','tag':'author-4','description':'Best in the business'},
+      {'name': 'Emily White', 'image': 'assets/author5.png','tag':'author-5','description':'Best in the business'},
+      {'name': 'Michael Green', 'image': 'assets/author6.png','tag':'author-6','description':'Best in the business'},
     ];
 
     return Padding(
@@ -313,7 +331,12 @@ class _HomeState extends State<Home> {
         itemBuilder: (context,index){
           final author=authors[index];
           return GestureDetector(
-            onTap:(){},
+            onTap:(){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder:(context)=>AuthorPage(author:author))
+              );
+            },
             child:Container(
               decoration:const BoxDecoration(
                 borderRadius:BorderRadius.only(
@@ -323,9 +346,12 @@ class _HomeState extends State<Home> {
               ),
               child:Column(
                 children:[
-                  CircleAvatar(
-                    backgroundImage: AssetImage(author['image']!),
-                    radius: 40,
+                  Hero(
+                    tag:author['tag']!,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(author['image']!),
+                      radius: 40,
+                    ),
                   ),
                   const SizedBox(height:10),
                   Text(

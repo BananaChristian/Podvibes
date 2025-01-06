@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_launcher_icons: ^0.14.2
   provider: ^6.1.2
+  font_awesome_flutter: ^10.8.0
   
 
 dev_dependencies:
@@ -73,7 +74,7 @@ flutter:
      - assets\author4.png
      - assets\author5.png
      - assets\author6.png
-     - assets\logo\podvibes.png
+     - assets\logo\podvibes_logo.png
      - assets\logo\podvibes_bgless.png
      - assets\history_hour.png
      - assets\tech_today.png
@@ -81,7 +82,7 @@ flutter:
 flutter_icons:
     android: true
     ios: true
-    image_path: "assets/logo/podvibes.png"
+    image_path: "assets/logo/podvibes_logo.png"
 
      
   # An image asset can refer to one or more resolution-specific "variants", see

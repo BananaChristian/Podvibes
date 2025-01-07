@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       }else{
         try{
           Auth().signIn(emailController.text, passwordController.text);
+          Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login succesful')));
         }on FirebaseAuthException catch(e){
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Unable to login an error $e ocuured')));

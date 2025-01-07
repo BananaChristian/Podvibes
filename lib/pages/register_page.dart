@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
         //try user creation
         try{
           Auth().createUser(emailController.text, passwordController.text);
+          Navigator.pop(context);
           //Informing the user of the creation
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Account succesfully created')));
           //Clearing the fields
@@ -52,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
             confirmPasswordController.clear();
           });
         }on FirebaseAuthException catch(e){
+          Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Unable to register due to error $e')));
         }
       }

@@ -41,6 +41,10 @@ dependencies:
   firebase_auth: ^5.3.4
   firebase_core: ^3.9.0
   http: ^1.2.2
+  #just_audio: ^0.9.42
+  audio_session: ^0.1.23
+  carousel_slider: ^5.0.0
+  audioplayers: ^6.1.0
   
 
 dev_dependencies:

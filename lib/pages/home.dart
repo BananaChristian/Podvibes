@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:podvibes/auth/auth.dart';
-import 'package:podvibes/models/new_podcasts.dart';
-import 'package:podvibes/models/podcast_player.dart';
+import 'package:podvibes/models/podcast_slider.dart';
+import 'package:podvibes/models/podcast_details.dart';
 import 'package:podvibes/models/search_board.dart';
+import 'package:podvibes/pages/other_page.dart';
 import 'package:podvibes/pages/profile.dart';
 import 'package:podvibes/pages/settings.dart';
 import 'package:podvibes/services/itunes_service.dart';
@@ -21,6 +22,7 @@ class _HomeState extends State<Home> {
   List<dynamic> podcasts = [];
   bool isLoading = false;
   String category = '';
+  final service=ItunesService();
 
   void logout() {
     Auth().signOut();
@@ -53,6 +55,7 @@ class _HomeState extends State<Home> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -202,20 +205,11 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         const Text(
-                          'New Podcasts',
+                          'Podcasts',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.amber, fontSize: 20),
                         ),
-                        NewPodcast(
-                            image: 'assets/cat.png',
-                            hoverText: 'Cats',
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PodcastPlayer()));
-                            }),
+                        PodcastSlider(podcasts: podcasts.cast<Map<String, dynamic>>()),
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -249,7 +243,10 @@ class _HomeState extends State<Home> {
                 child: Container(
                     color: Colors.black.withOpacity(0.5),
                     child: const Padding(
-                        padding: EdgeInsets.all(20), child: SearchBoard()))),
+                        padding: EdgeInsets.all(20), child: SearchBoard()
+                        ),
+                        ),
+                        ),
         ],
       ),
     );
@@ -312,7 +309,12 @@ class _HomeState extends State<Home> {
       itemBuilder: (context, index) {
         final podcast = podcasts[index];
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=>PodcastDetails(podcast: podcast,))
+            );
+          },
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -323,7 +325,7 @@ class _HomeState extends State<Home> {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.network(podcast['artworkUrl100'] ?? '',
+                    child: Image.network(podcast['artworkUrl600'] ?? '',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
                               color: Colors.grey[300],
@@ -392,7 +394,12 @@ class _HomeState extends State<Home> {
       itemBuilder: (context, index) {
         final podcast = podcasts[index];
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=>PodcastDetails(podcast: podcast,))
+            );
+          },
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -403,7 +410,7 @@ class _HomeState extends State<Home> {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.network(podcast['artworkUrl100'] ?? '',
+                    child: Image.network(podcast['artworkUrl600'] ?? '',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
                               color: Colors.grey[300],
@@ -417,7 +424,7 @@ class _HomeState extends State<Home> {
                     left: 0,
                     right: 0,
                     child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         color: Colors.black.withOpacity(0.6),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,7 +479,12 @@ class _HomeState extends State<Home> {
       itemBuilder: (context, index) {
         final podcast = podcasts[index];
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=>PodcastDetails(podcast: podcast,))
+            );
+          },
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -483,7 +495,7 @@ class _HomeState extends State<Home> {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.network(podcast['artworkUrl100'] ?? '',
+                    child: Image.network(podcast['artworkUrl600'] ?? '',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
                               color: Colors.grey[300],
@@ -540,15 +552,18 @@ class _HomeState extends State<Home> {
       'Business',
       'History',
       'News',
+      'Kids',
+      'Gospel',
       'Sports',
       'Entertainment',
       'Health and Fitness',
-      'Education'
+      'Education',
     ];
 
     return ListView.builder(
       itemCount: topics.length,
       itemBuilder: (context, index) {
+        final topic=topics[index];
         return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: Card(
@@ -558,8 +573,10 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary)),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Selected topics: ${topics[index]}')));
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder:(context)=>OthersSectionPage(topic:topic ))
+                    );
                   }),
             ));
       },

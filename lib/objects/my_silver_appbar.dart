@@ -11,11 +11,12 @@ class MySilverAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      actions:const [
-        Icon(
-          Icons.add,
-          color:Colors.amber
-          )
+      actions:[
+        ElevatedButton(
+          onPressed:(){},
+          style:ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+          child:Text('Follow',style:TextStyle(color:Theme.of(context).colorScheme.primary))
+        ),
       ],
       expandedHeight: 300,
       collapsedHeight: 80,

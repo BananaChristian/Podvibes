@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:podvibes/models/podcast_details.dart';
 import 'package:podvibes/objects/fields.dart';
 import 'package:podvibes/services/itunes_service.dart';
 
@@ -49,6 +50,7 @@ class _SearchBoardState extends State<SearchBoard> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
@@ -123,7 +125,12 @@ class _SearchBoardState extends State<SearchBoard> {
                 subtitle: Text(
                   result['artistName'] ?? 'Unknown Author',
                 ),
-                onTap: () {}),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PodcastDetails(podcast: result))
+                  );
+                }),
           );
         });
   }

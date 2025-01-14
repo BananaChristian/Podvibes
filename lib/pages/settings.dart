@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
     final themeProvider= Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar:AppBar(
-        title:Text('Settings'),
+        title:const Text('Settings'),
         centerTitle: true,
       ),
       body:Container(

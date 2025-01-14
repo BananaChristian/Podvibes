@@ -25,7 +25,7 @@ class _SearchBoardState extends State<SearchBoard> {
     final query = searchController.text.trim();
     if (query.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a search')),
+        const SnackBar(content: Text('Please enter a search')),
       );
       return;
     }
@@ -119,7 +119,7 @@ class _SearchBoardState extends State<SearchBoard> {
             child: ListTile(
                 leading: result['artworkUrl100'] != null
                     ? Image.network(result['artworkUrl100'])
-                    : Icon(FontAwesomeIcons.podcast, size: 50),
+                    : const Icon(FontAwesomeIcons.podcast, size: 50),
                 title: Text(result['collectionName'] ?? "Unknown Podcast",
                     style: const TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text(

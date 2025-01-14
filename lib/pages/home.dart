@@ -4,9 +4,8 @@ import 'package:podvibes/auth/auth.dart';
 import 'package:podvibes/models/podcast_slider.dart';
 import 'package:podvibes/models/podcast_details.dart';
 import 'package:podvibes/models/search_board.dart';
+import 'package:podvibes/objects/drawer.dart';
 import 'package:podvibes/pages/other_page.dart';
-import 'package:podvibes/pages/profile.dart';
-import 'package:podvibes/pages/settings.dart';
 import 'package:podvibes/services/itunes_service.dart';
 
 class Home extends StatefulWidget {
@@ -23,10 +22,7 @@ class _HomeState extends State<Home> {
   bool isLoading = false;
   String category = '';
   final service=ItunesService();
-
-  void logout() {
-    Auth().signOut();
-  }
+  String userId = Auth().currentUser?.uid??'Guest';
 
   @override
   void initState() {
@@ -79,107 +75,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: SafeArea(
-        child: Drawer(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            child: ListView(padding: const EdgeInsets.all(10), children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    color: Theme.of(context).colorScheme.primary),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage()));
-                  },
-                  child: Hero(
-                    tag: 'profile picture',
-                    child: Container(
-                        alignment: Alignment.bottomCenter,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                              image: AssetImage('assets/author2.png'),
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text('Welcome User')),
-                  ),
-                ),
-              ),
-              //Home
-              ListTile(
-                  leading: Icon(Icons.home,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Home',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home()));
-                  }),
-              //Downloads
-              ListTile(
-                  leading: Icon(Icons.download,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Downloads',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {}),
-              //Settings
-              ListTile(
-                  leading: Icon(Icons.settings,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Settings',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SettingsPage()));
-                  }),
-              //Subscriptions
-              ListTile(
-                  leading: Icon(Icons.subscriptions,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Subscriptions',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {}),
-              //History
-              ListTile(
-                  leading: Icon(Icons.history,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('History',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {}),
-              //Favorites
-              ListTile(
-                  leading: Icon(Icons.favorite,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Favorites',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {}),
-              //Logout
-              ListTile(
-                  leading: Icon(Icons.logout,
-                      color: Theme.of(context).colorScheme.inversePrimary),
-                  title: Text('Log out',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary)),
-                  onTap: () {
-                    logout();
-                  })
-            ])),
-      ),
+      drawer: AppDrawer(userId: userId,),
       body: Stack(
         children: [
           Container(
@@ -339,7 +235,7 @@ class _HomeState extends State<Home> {
                     left: 0,
                     right: 0,
                     child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         color: Colors.black.withOpacity(0.6),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -509,7 +405,7 @@ class _HomeState extends State<Home> {
                     left: 0,
                     right: 0,
                     child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         color: Colors.black.withOpacity(0.6),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

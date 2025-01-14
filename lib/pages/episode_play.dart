@@ -76,7 +76,6 @@ class _EpisodePlayPageState extends State<EpisodePlayPage> {
     if(isShown){
       setState((){
         isShown=!isShown;
-        print('Description Toggled: $isShown');
       });
     }
   }

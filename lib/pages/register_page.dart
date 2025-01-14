@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }else{
         //try user creation
         try{
-          Auth().createUser(emailController.text, passwordController.text);
+          Auth().createUser(emailController.text, passwordController.text,usernameController.text);
           Navigator.pop(context);
           //Informing the user of the creation
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Account succesfully created')));
@@ -57,6 +57,15 @@ class _RegisterPageState extends State<RegisterPage> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text('Unable to register due to error $e')));
         }
       }
+    }
+
+    void dispose(){
+      setState((){
+        usernameController.dispose();
+        emailController.dispose();
+        passwordController.dispose();
+        confirmPasswordController.dispose();
+      });
     }
 
     return Scaffold(
@@ -78,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         //Logo section
                         const SizedBox(
                           width:200,
-                          child: Image(image:AssetImage('assets/logo/podvibes_bgless.png'))
+                          child: Image(image:AssetImage('assets/logo/podvibes_transparent.png'))
                           ),
                         //Main text
                         Text(

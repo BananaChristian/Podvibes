@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
+
     void login(){
       //Circular loader
       showDialog(
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                         //Logo section
                         const SizedBox(
                           width:200,
-                          child: Image(image:AssetImage('assets/logo/podvibes_bgless.png'))
+                          child: Image(image:AssetImage('assets/logo/podvibes_transparent.png'))
                           ),
                         //Main text
                         Text(

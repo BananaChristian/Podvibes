@@ -45,6 +45,11 @@ dependencies:
   audio_session: ^0.1.23
   carousel_slider: ^5.0.0
   audioplayers: ^6.1.0
+  sqflite: ^2.4.1
+  path: ^1.9.0
+  cloud_firestore: ^5.6.1
+  firebase_storage: ^12.4.0
+  image_picker: ^1.1.2
   
 
 dev_dependencies:
@@ -72,24 +77,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets\background.png
-     - assets\cat.png
      - assets\bg_home.png
-     - assets\author1.png
      - assets\author2.png
-     - assets\author3.png
-     - assets\author4.png
-     - assets\author5.png
-     - assets\author6.png
-     - assets\logo\podvibes_logo.png
-     - assets\logo\podvibes_bgless.png
-     - assets\history_hour.png
-     - assets\tech_today.png
+     - assets\logo\podvibes_light.png
+     - assets\logo\podvives_dark.png
+     - assets\logo\podvibes_transparent.png
 
 flutter_icons:
     android: true
     ios: true
-    image_path: "assets/logo/podvibes_logo.png"
+    image_path: "assets/logo/podvibes_light.png"
 
      
   # An image asset can refer to one or more resolution-specific "variants", see

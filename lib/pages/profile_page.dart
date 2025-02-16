@@ -38,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
           setState(() {
             username = userDoc['username'] ?? 'No username';
             subscriptions = List.from(userDoc['subscriptions'] ?? []);
-            profileImageUrl = userDoc['profileImageUrl'] ?? '';
             isLoading = false;
           });
         } else {

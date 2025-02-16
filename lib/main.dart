@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:podvibes/audio/audio_player_provider.dart';
 import 'package:podvibes/auth/auth_gate.dart';
 import 'package:podvibes/firebase_options.dart';
+import 'package:podvibes/models/miniplayer_state.dart';
 import 'package:podvibes/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,8 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => ThemeProvider(),
         ),
-        ChangeNotifierProvider(create: (context)=>AudioPlayerProvider()),
+        ChangeNotifierProvider(create: (context) => AudioPlayerProvider()),
+        ChangeNotifierProvider(create: (context) => MiniplayerState())
       ],
       child: const MyApp(),
     ),

@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     } else {
       setState(() {
-        username = 'No user logged in';
+        username = 'Guest';
         subscriptions = [];
         isLoading = false;
       });

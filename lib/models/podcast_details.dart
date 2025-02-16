@@ -203,17 +203,16 @@ class _PodcastDetailsState extends State<PodcastDetails> {
                   style: const TextStyle(color: Colors.amber)),
               trailing: IconButton(
                   onPressed: () {
-                    /*
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder:(context)=>MiniPlayer(
-                  audioUrl: episode['previewUrl']??'',
-                  imageUrl: widget.podcast['artworkUrl600']??'', 
-                  episodeTitle: episode['trackName']??'Unknown title', 
-                  episodeAuthor: widget.podcast['artistName']??'Unknown artist', 
-                  episodeDetails: episode['description']??'No description available'
-                  ))
-                );*/
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context)=>EpisodePlayPage(
+                        audioUrl: episode['previewUrl']??'', 
+                        imageUrl: episode['artworkUrl600']??'', 
+                        episodeTitle: episode['trackName']??'', 
+                        episodeAuthor: episode['artistName']??'', 
+                        episodeDetails: episode['description']??''
+                        ))
+                    );
                   },
                   icon: const Icon(Icons.play_arrow,
                       color: Colors.amber, size: 30)),

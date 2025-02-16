@@ -1,6 +1,9 @@
 import 'package:audioplayers/audioplayers.dart' as audioplayers;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:podvibes/models/miniplayer_state.dart';
+//import 'package:podvibes/models/miniplayer_state.dart';
+import 'package:provider/provider.dart';
 
 class EpisodePlayPage extends StatefulWidget {
   final String audioUrl;
@@ -48,10 +51,19 @@ class _EpisodePlayPageState extends State<EpisodePlayPage> {
   @override
   void dispose(){
     _audioPlayer.dispose();
+    final miniPlayerState=Provider.of<MiniplayerState>(context,listen:false);
+    miniPlayerState.setMiniPlayer(
+      playing: isPlaying, 
+      audio: widget.audioUrl, 
+      image: widget.imageUrl, 
+      episode: widget.episodeTitle, 
+      author: widget.episodeAuthor
+    );
     super.dispose();
   }
 
   void togglePlayPause() async {
+    final miniplayerState=Provider.of<MiniplayerState>(context,listen:false);
     try{
       if(isPlaying){
         await _audioPlayer.pause();
@@ -66,6 +78,14 @@ class _EpisodePlayPageState extends State<EpisodePlayPage> {
           isPlaying=true;
           isPaused=false;
         });
+
+        miniplayerState.setMiniPlayer(
+          playing: true, 
+          author: widget.episodeAuthor, 
+          audio: widget.audioUrl, 
+          image: widget.imageUrl, 
+          episode: widget.episodeTitle,
+        );
       }
     }catch(e){
       debugPrint('Error during playback $e');

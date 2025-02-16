@@ -50,24 +50,6 @@ class _PodcastSliderState extends State<PodcastSlider> {
                       height:double.infinity,
                       fit:BoxFit.cover
                     ),
-                    //Hover align
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child:Container(
-                        padding:const EdgeInsets.all(10),
-                        color:Colors.black.withOpacity(0.5),
-                        child:Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              podcast['collectionName']??'Unknown Podcast',
-                              style:const TextStyle(fontSize: 12),
-                              textAlign:TextAlign.center
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ],
                 )
               ),
